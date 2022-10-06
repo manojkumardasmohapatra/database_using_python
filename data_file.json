@@ -1,0 +1,1 @@
+{"students": {"table_name": "students", "fields_count": 3, "fields": ["name", "age", "mark"]}, "teachers": {"table_name": "teachers", "fields_count": 3, "fields": ["name", "age", "subject"]}}

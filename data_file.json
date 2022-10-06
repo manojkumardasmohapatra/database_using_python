@@ -1,1 +1,1 @@
-{"students": {"table_name": "students", "fields_count": 3, "fields": ["name", "age", "mark"]}, "teachers": {"table_name": "teachers", "fields_count": 3, "fields": ["name", "age", "subject"]}}
+{"scores": {"table_name": "scores", "fields_count": 3, "fields": ["roll_no", "name", "marks"], "data": [{"roll_no": "101", "name": "manoj", "marks": "100"}, {"roll_no": "101", "name": "naitik", "marks": "200"}, {"roll_no": "102", "name": "", "marks": "120"}]}}

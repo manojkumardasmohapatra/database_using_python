@@ -9,8 +9,7 @@ while  True:
 	else:
 		database = dict()
 		
- 	
-	print("1. Create Table")
+ 	print("1. Create Table")
 	print("2. View Tables")
 	option=int(input("Enter Option="))
 	

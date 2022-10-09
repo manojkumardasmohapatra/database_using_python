@@ -1,5 +1,6 @@
 import json
 import os
+import csv
 from os.path import exists
 DATABASE_FILE="data_file.json"
 #function to check if table exists
@@ -36,6 +37,7 @@ def printMainMenu():
 	print("#4. Delete Table            #")
 	print("#5. Delete Record           #")
 	print("#6. Update Record           #")
+	print("#7. Export Table to CSV     #")
 	print("#0. Exit                    #")
 	print("#############################")
 	print("#############################")
@@ -52,7 +54,21 @@ def viewTableContents(table):
  		else:
  			print(meta," : ",table_meta[meta])
 
-
+#function viewTableContents ends
+#function to export table as CSV
+def exportTableToCSV(table,fields,csv_file_name):
+	csv_columns = fields
+	dict_data = table
+	csv_file = csv_file_name
+	try:
+	    with open(csv_file, 'w', newline='') as csvfile:
+	        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+	        writer.writeheader()
+	        for data in dict_data:
+	            writer.writerow(data)
+	except IOError as e:
+	    print("I/O error",e)
+#function exportTableToCSV ends
 while  True:
 
 	file_exists = exists(DATABASE_FILE)
@@ -201,6 +217,37 @@ while  True:
  			print("Record Updated!")
  			with open( DATABASE_FILE , "w" ) as write:
  				json.dump( database , write )
+
+		if goToMainMenu():
+			continue
+	elif option==7:
+		with open(DATABASE_FILE, "r") as read_content:
+ 			database=json.load(read_content)
+ 			print("Select Table")
+ 			print("============")
+ 			i=0
+ 			assoc=dict()
+ 			for table in database:
+ 				assoc[i]=table
+ 				print(i,". ",table)
+ 				i+=1
+ 				# table_meta=database[table]
+ 				# for meta in table_meta:
+ 				# 	print(meta," : ",table_meta[meta])
+ 			selected_table_no=int(input("Enter Option="))
+ 			exportTableToCSV(database[assoc[selected_table_no]]["data"],database[assoc[selected_table_no]]["fields"],assoc[selected_table_no]+".csv")
+ 			# viewTableContents(database[assoc[selected_table_no]])
+ 			# update_record_no=int(input("Enter Record No you want to update="))
+ 			# print("Enter Updated Values:-")
+ 			# print("=======================")
+ 			# table_data=dict()
+ 			# for field in database[assoc[selected_table_no]]["fields"]:
+ 			# 	table_data[field]=str(input("Enter "+field+"="))
+
+ 			# database[assoc[selected_table_no]]["data"][update_record_no-1]=table_data
+ 			# print("Record Updated!")
+ 			# with open( DATABASE_FILE , "w" ) as write:
+ 			# 	json.dump( database , write )
 
 		if goToMainMenu():
 			continue	
